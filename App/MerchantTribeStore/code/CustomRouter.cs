@@ -9,12 +9,12 @@ using MvcMiniProfiler;
 
 namespace MerchantTribeStore
 {
-    public class CustomRouter: IRouteHandler
-    {        
+    public class CustomRouter : IRouteHandler
+    {
         private class CategoryUrlMatchData
         {
-            public bool IsFound {get;set;}
-            public CategorySourceType SourceType {get;set;}
+            public bool IsFound { get; set; }
+            public CategorySourceType SourceType { get; set; }
 
             public CategoryUrlMatchData()
             {
@@ -123,7 +123,7 @@ namespace MerchantTribeStore
                 System.Web.Mvc.MvcHandler mvcHandler = new System.Web.Mvc.MvcHandler(requestContext);
                 return mvcHandler;
             }
-        }
+
         }
 
         private void CheckFor301(string slug, MerchantTribe.Commerce.MerchantTribeApplication app)
@@ -136,7 +136,7 @@ namespace MerchantTribeStore
                     string destination = app.StoreUrl(false, false) + url.RedirectToUrl.TrimStart('/');
 
                     if (url.IsPermanentRedirect)
-                    {                        
+                    {
                         app.CurrentRequestContext.RoutingContext.HttpContext.Response.RedirectPermanent(destination);
                     }
                     else
@@ -147,9 +147,9 @@ namespace MerchantTribeStore
             }
         }
 
-        private CategoryUrlMatchData IsCategoryMatch(string fullSlug,MerchantTribe.Commerce.MerchantTribeApplication app)
+        private CategoryUrlMatchData IsCategoryMatch(string fullSlug, MerchantTribe.Commerce.MerchantTribeApplication app)
         {
- 	        CategoryUrlMatchData result =new CategoryUrlMatchData();
+            CategoryUrlMatchData result = new CategoryUrlMatchData();
 
             Category cat = app.CatalogServices.Categories.FindBySlugForStore(fullSlug, app.CurrentRequestContext.CurrentStore.Id);
             if (cat != null)
@@ -162,7 +162,7 @@ namespace MerchantTribeStore
         }
 
         private bool IsProductUrl(string fullSlug, MerchantTribe.Commerce.MerchantTribeApplication app)
-        {                        
+        {
             // See if we have a matching Product URL
             MerchantTribe.Commerce.Catalog.Product p = app.CatalogServices.Products.FindBySlug(fullSlug);
             if (p != null)
@@ -172,18 +172,17 @@ namespace MerchantTribeStore
 
             return false;
         }
-        
-        private string GetCustomSlug(MerchantTribe.Commerce.MerchantTribeApplication mtapp)
-        {
-            string result = string.Empty;
-            if (mtapp == null) return result;
-            if (mtapp.CurrentStore.Settings.HomePageIsFlex == false) return result;
-            string bvin = mtapp.CurrentStore.Settings.HomePageIsFlexBvin;
-            var cat = mtapp.CatalogServices.Categories.Find(bvin);
-            if (cat == null) return result;
-            result = cat.RewriteUrl;
-            return result;
-        }
-    }
 
+        //private string GetCustomSlug(MerchantTribe.Commerce.MerchantTribeApplication mtapp)
+        //{
+        //    string result = string.Empty;
+        //    if (mtapp == null) return result;
+        //    if (mtapp.CurrentStore.Settings.HomePageIsFlex == false) return result;
+        //    string bvin = mtapp.CurrentStore.Settings.HomePageIsFlexBvin;
+        //    var cat = mtapp.CatalogServices.Categories.Find(bvin);
+        //    if (cat == null) return result;
+        //    result = cat.RewriteUrl;
+        //    return result;
+        //}
+    }
 }

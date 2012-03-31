@@ -59,7 +59,7 @@ namespace MerchantTribeStore.Controllers
         [HttpPost]
         public ActionResult Destroy(long id)
         {
-            MTApp.DestroyStore(id);
+            //MTApp.DestroyStore(id);
             return new RawResult("Complete", "text/html");
         }
 
