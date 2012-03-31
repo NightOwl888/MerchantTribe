@@ -618,9 +618,9 @@ namespace MerchantTribe.Shipping.Ups
                     xw.WriteStartElement("UnitOfMeasure");
                     xw.WriteElementString("Code", "IN");
                     xw.WriteEndElement();
-                    xw.WriteElementString("Length", Math.Round(dLength, 2).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                    xw.WriteElementString("Width", Math.Round(dwidth, 2).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                    xw.WriteElementString("Height", Math.Round(dHeight, 2).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    xw.WriteElementString("Length", Math.Round(dLength, 2, MidpointRounding.AwayFromZero).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    xw.WriteElementString("Width", Math.Round(dwidth, 2, MidpointRounding.AwayFromZero).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    xw.WriteElementString("Height", Math.Round(dHeight, 2, MidpointRounding.AwayFromZero).ToString(System.Globalization.CultureInfo.InvariantCulture));
                     xw.WriteEndElement();
                 }
             }
@@ -638,7 +638,7 @@ namespace MerchantTribe.Shipping.Ups
                     xw.WriteElementString("Code", "KGS");
                 }
                 xw.WriteEndElement();
-                xw.WriteElementString("Weight", Math.Round(pak.BoxWeight, 1).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                xw.WriteElementString("Weight", Math.Round(pak.BoxWeight, 1, MidpointRounding.AwayFromZero).ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xw.WriteEndElement();
             }
             else
@@ -655,7 +655,7 @@ namespace MerchantTribe.Shipping.Ups
                 }
 
                 xw.WriteEndElement();
-                xw.WriteElementString("Weight", Math.Round(0.1, 1).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                xw.WriteElementString("Weight", Math.Round(0.1, 1, MidpointRounding.AwayFromZero).ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xw.WriteEndElement();
             }
 
@@ -687,7 +687,7 @@ namespace MerchantTribe.Shipping.Ups
             //xw.WriteStartElement("PackageServiceOptions")
             //xw.WriteStartElement("InsuredValue")
             //xw.WriteElementString("CurrencyCode", "USD")
-            //xw.WriteElementString("MonetaryValue", Math.Round(pak.DeclaredValue, 2).ToString())
+            //xw.WriteElementString("MonetaryValue", Math.Round(pak.DeclaredValue, 2, MidpointRounding.AwayFromZero).ToString())
             //xw.WriteEndElement()
             //xw.WriteEndElement()
 

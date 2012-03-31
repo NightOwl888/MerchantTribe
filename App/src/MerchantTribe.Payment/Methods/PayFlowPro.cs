@@ -61,7 +61,7 @@ namespace MerchantTribe.Payment.Methods
             Invoice Inv = new Invoice();
 
             // Set the amount object. A valid amount is a two decimal value.  An invalid amount will generate a result code                
-            Currency Amt = new Currency(Decimal.Round(t.Amount, 2), CurrencyCode); //' 840 is US ISO currency code.  If no code passed, 840 is default.
+            Currency Amt = new Currency(Decimal.Round(t.Amount, 2, MidpointRounding.AwayFromZero), CurrencyCode); //' 840 is US ISO currency code.  If no code passed, 840 is default.
             Inv.Amt = Amt;
 
             // Generate a unique transaction ID

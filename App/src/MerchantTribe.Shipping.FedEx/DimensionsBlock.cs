@@ -16,17 +16,17 @@ namespace MerchantTribe.Shipping.FedEx
         public decimal Length
         {
             get { return _Length; }
-            set { _Length = Math.Round(value, 1); }
+            set { _Length = Math.Round(value, 1, MidpointRounding.AwayFromZero); }
         }
         public decimal Width
         {
             get { return _Width; }
-            set { _Width = Math.Round(value, 1); }
+            set { _Width = Math.Round(value, 1, MidpointRounding.AwayFromZero); }
         }
         public decimal Height
         {
             get { return _Height; }
-            set { _Height = Math.Round(value, 1); }
+            set { _Height = Math.Round(value, 1, MidpointRounding.AwayFromZero); }
         }
         public DimensionType Units
         {
@@ -46,9 +46,9 @@ namespace MerchantTribe.Shipping.FedEx
 
         public void WriteToXml(XmlTextWriter xw)
         {
-            XmlHelper.WriteIfNotEmpty(xw, "Length", Math.Round(_Length, 0).ToString());
-            XmlHelper.WriteIfNotEmpty(xw, "Width", Math.Round(_Width, 0).ToString());
-            XmlHelper.WriteIfNotEmpty(xw, "Height", Math.Round(_Height, 0).ToString());
+            XmlHelper.WriteIfNotEmpty(xw, "Length", Math.Round(_Length, 0, MidpointRounding.AwayFromZero).ToString());
+            XmlHelper.WriteIfNotEmpty(xw, "Width", Math.Round(_Width, 0, MidpointRounding.AwayFromZero).ToString());
+            XmlHelper.WriteIfNotEmpty(xw, "Height", Math.Round(_Height, 0, MidpointRounding.AwayFromZero).ToString());
             XmlHelper.WriteIfNotEmpty(xw, "Units", _Units.ToString());
         }
 

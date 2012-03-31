@@ -515,9 +515,9 @@ namespace MerchantTribe.Shipping.Ups
                             break;
                     }
                     xw.WriteEndElement();
-                    xw.WriteElementString("Length", Math.Round(dLength, 0).ToString());
-                    xw.WriteElementString("Width", Math.Round(dwidth, 0).ToString());
-                    xw.WriteElementString("Height", Math.Round(dHeight, 0).ToString());
+                    xw.WriteElementString("Length", Math.Round(dLength, 0, MidpointRounding.AwayFromZero).ToString());
+                    xw.WriteElementString("Width", Math.Round(dwidth, 0, MidpointRounding.AwayFromZero).ToString());
+                    xw.WriteElementString("Height", Math.Round(dHeight, 0, MidpointRounding.AwayFromZero).ToString());
                     xw.WriteEndElement();
                 }
             }
@@ -540,7 +540,7 @@ namespace MerchantTribe.Shipping.Ups
                         break;
                 }
                 xw.WriteEndElement();
-                xw.WriteElementString("Weight", Math.Round(p.Weight, 1).ToString());
+                xw.WriteElementString("Weight", Math.Round(p.Weight, 1, MidpointRounding.AwayFromZero).ToString());
                 xw.WriteEndElement();
             }
 

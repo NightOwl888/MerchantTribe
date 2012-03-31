@@ -18,12 +18,12 @@ namespace MerchantTribe.Shipping.FedEx
         public decimal Weight
         {
             get { return _Weight; }
-            set { _Weight = Math.Round(value, 1); }
+            set { _Weight = Math.Round(value, 1, MidpointRounding.AwayFromZero); }
         }
         public decimal DeclaredValue
         {
             get { return _DeclaredValue; }
-            set { _DeclaredValue = Math.Round(value, 2); }
+            set { _DeclaredValue = Math.Round(value, 2, MidpointRounding.AwayFromZero); }
         }
 
         public Header RequestHeader { get; set; }

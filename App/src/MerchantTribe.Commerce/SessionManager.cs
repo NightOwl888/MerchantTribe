@@ -592,7 +592,7 @@ namespace MerchantTribe.Commerce
             {
                 // Save Cart Cookie
                 SetCookieString(WebAppSettings.CookieNameCartId(currentStore.Id), o.bvin, currentStore);
-                SetCookieString(WebAppSettings.CookieNameCartItemCount(currentStore.Id), Math.Round(o.TotalQuantity, 0).ToString(), currentStore);
+                SetCookieString(WebAppSettings.CookieNameCartItemCount(currentStore.Id), Math.Round(o.TotalQuantity, 0, MidpointRounding.AwayFromZero).ToString(), currentStore);
                 SetCookieString(WebAppSettings.CookieNameCartSubTotal(currentStore.Id), o.TotalOrderAfterDiscounts.ToString("c"), currentStore);
             }
         }

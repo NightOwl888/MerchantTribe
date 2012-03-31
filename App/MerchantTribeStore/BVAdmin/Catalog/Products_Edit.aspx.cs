@@ -260,10 +260,10 @@ namespace MerchantTribeStore
                     this.MetaDescriptionField.Text = p.MetaDescription;
                     this.MetaKeywordsField.Text = p.MetaKeywords;
 
-                    this.WeightField.Text = Math.Round(p.ShippingDetails.Weight, 3).ToString();
-                    this.LengthField.Text = Math.Round(p.ShippingDetails.Length, 3).ToString();
-                    this.WidthField.Text = Math.Round(p.ShippingDetails.Width, 3).ToString();
-                    this.HeightField.Text = Math.Round(p.ShippingDetails.Height, 3).ToString();
+                    this.WeightField.Text = Math.Round(p.ShippingDetails.Weight, 3, MidpointRounding.AwayFromZero).ToString();
+                    this.LengthField.Text = Math.Round(p.ShippingDetails.Length, 3, MidpointRounding.AwayFromZero).ToString();
+                    this.WidthField.Text = Math.Round(p.ShippingDetails.Width, 3, MidpointRounding.AwayFromZero).ToString();
+                    this.HeightField.Text = Math.Round(p.ShippingDetails.Height, 3, MidpointRounding.AwayFromZero).ToString();
 
                     this.ExtraShipFeeField.Text = p.ShippingDetails.ExtraShipFee.ToString("C");
                     if (this.ShipTypeField.Items.FindByValue(((int)p.ShippingMode).ToString()) != null)
@@ -274,7 +274,7 @@ namespace MerchantTribeStore
                     this.chkNonShipping.Checked = p.ShippingDetails.IsNonShipping;
                     this.chkShipSeparately.Checked = p.ShippingDetails.ShipSeparately;
 
-                    this.MinimumQtyField.Text = Math.Round((decimal)p.MinimumQty, 0).ToString();
+                    this.MinimumQtyField.Text = Math.Round((decimal)p.MinimumQty, 0, MidpointRounding.AwayFromZero).ToString();
 
                     this.RewriteUrlField.Text = p.UrlSlug;
                     this.PriceOverrideTextBox.Text = p.SitePriceOverrideText;

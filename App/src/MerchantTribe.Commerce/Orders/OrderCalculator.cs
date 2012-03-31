@@ -240,7 +240,7 @@ namespace MerchantTribe.Commerce.Orders
                     o.ShippingMethodDisplayName = r.DisplayName;
                     o.ShippingProviderId = r.ProviderId;
                     o.ShippingProviderServiceCode = r.ProviderServiceCode;
-                    o.TotalShippingBeforeDiscounts = Math.Round(r.Rate, 2);
+                    o.TotalShippingBeforeDiscounts = Math.Round(r.Rate, 2, MidpointRounding.AwayFromZero);
                     //this.AddPackages(r.SuggestedPackages);
                 }
             }
@@ -300,7 +300,7 @@ namespace MerchantTribe.Commerce.Orders
             // Total Tax for all items on this schedule is calculated
             // Now, we assign the tax parts to each line item based on their
             // linetotal value. The last item should get the remainder of the tax
-            decimal RoundedTotal = Math.Round(summaryForSchedule.TaxedValue, 2);
+            decimal RoundedTotal = Math.Round(summaryForSchedule.TaxedValue, 2, MidpointRounding.AwayFromZero);
 
             decimal TotalApplied = 0M;
 
@@ -321,7 +321,7 @@ namespace MerchantTribe.Commerce.Orders
                     {
                         percentOfTotal = item.TaxableValue() / summaryForSchedule.TaxableValue();
                     }
-                    decimal part = Math.Round(percentOfTotal * summaryForSchedule.TaxedValue, 2);
+                    decimal part = Math.Round(percentOfTotal * summaryForSchedule.TaxedValue, 2, MidpointRounding.AwayFromZero);
                     item.IncrementTaxValue(part);
                     TotalApplied += part;
                 }

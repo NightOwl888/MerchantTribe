@@ -37,7 +37,7 @@ namespace MerchantTribe.Commerce.Membership
             decimal result = 0;
 
             result = (decimal)points / (decimal)_pointsNeededForOneDollarCredit;
-            result = Math.Round(result, 2);
+            result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
             
             return result;
         }

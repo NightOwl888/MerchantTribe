@@ -114,12 +114,12 @@ namespace MerchantTribeStore
                     {
                         if (affiliate.CommissionType == AffiliateCommissionType.FlatRateCommission)
                         {
-                            commission = Math.Round(affiliate.CommissionAmount * (decimal)affiliateOrders.Count, 2);
+                            commission = Math.Round(affiliate.CommissionAmount * (decimal)affiliateOrders.Count, 2, MidpointRounding.AwayFromZero);
                             commissionText = string.Format("{0:c}", affiliate.CommissionAmount) + " per";
                         }
                         else
                         {
-                            commission = Math.Round((affiliate.CommissionAmount / (decimal)100) * total, 2);
+                            commission = Math.Round((affiliate.CommissionAmount / (decimal)100) * total, 2, MidpointRounding.AwayFromZero);
                             commissionText = string.Format("{0:p}", (affiliate.CommissionAmount / (decimal)100));
                         }
 

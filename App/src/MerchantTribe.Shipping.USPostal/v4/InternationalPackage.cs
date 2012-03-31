@@ -184,7 +184,7 @@ namespace MerchantTribe.Shipping.USPostal.v4
             xw.WriteEndElement();
 
             // Value
-            xw.WriteElementString("ValueOfContents", Math.Round(this.ValueOfContents, 2).ToString());
+            xw.WriteElementString("ValueOfContents", Math.Round(this.ValueOfContents, 2, MidpointRounding.AwayFromZero).ToString());
 
             // Country
             xw.WriteElementString("Country", this.DestinationCountry);
@@ -215,17 +215,17 @@ namespace MerchantTribe.Shipping.USPostal.v4
             // Dimesions here
             if (this.HasDimensions())
             {
-                xw.WriteElementString("Width", Math.Round(this.Width, 1).ToString());
-                xw.WriteElementString("Length", Math.Round(this.Length, 1).ToString());                
-                xw.WriteElementString("Height", Math.Round(this.Height, 1).ToString());
+                xw.WriteElementString("Width", Math.Round(this.Width, 1, MidpointRounding.AwayFromZero).ToString());
+                xw.WriteElementString("Length", Math.Round(this.Length, 1, MidpointRounding.AwayFromZero).ToString());
+                xw.WriteElementString("Height", Math.Round(this.Height, 1, MidpointRounding.AwayFromZero).ToString());
             }
             else
             {
-                xw.WriteElementString("Width", Math.Round(3.0, 1).ToString());
-                xw.WriteElementString("Length", Math.Round(6.0, 1).ToString());                
-                xw.WriteElementString("Height", Math.Round(1.0, 1).ToString());
+                xw.WriteElementString("Width", Math.Round(3.0, 1, MidpointRounding.AwayFromZero).ToString());
+                xw.WriteElementString("Length", Math.Round(6.0, 1, MidpointRounding.AwayFromZero).ToString());
+                xw.WriteElementString("Height", Math.Round(1.0, 1, MidpointRounding.AwayFromZero).ToString());
             }
-            xw.WriteElementString("Girth", Math.Round(this.Girth(), 1).ToString());
+            xw.WriteElementString("Girth", Math.Round(this.Girth(), 1, MidpointRounding.AwayFromZero).ToString());
             
             // Origin Zip
             xw.WriteElementString("OriginZip", this.ZipOrigination);

@@ -83,7 +83,7 @@ namespace MerchantTribe.Billing
         }
         public decimal TotalTax()
         {
-            return Math.Round((TaxRate / 100m) * TotalItemsTaxable(), 2);
+            return Math.Round((TaxRate / 100m) * TotalItemsTaxable(), 2, MidpointRounding.AwayFromZero);
         }
         public decimal TotalGrand()
         {

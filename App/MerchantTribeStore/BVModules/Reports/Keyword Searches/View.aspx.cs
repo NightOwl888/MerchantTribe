@@ -50,7 +50,7 @@ namespace MerchantTribeStore
                     if (totalSearches > 0)
                     {
                         decimal percent = ((decimal)q.Count / (decimal)totalSearches) * 100m;
-                        q.Percentage = Math.Round(percent, 2);
+                        q.Percentage = Math.Round(percent, 2, MidpointRounding.AwayFromZero);
                     }                    
                 }
             }

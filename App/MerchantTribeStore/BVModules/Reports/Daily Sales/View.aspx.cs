@@ -105,13 +105,13 @@ namespace MerchantTribeStore
                 {
                     decimal percentOfTotal = 0;
                     if (snap.TotalGrand > 0) percentOfTotal = t.AmountAppliedToOrder / snap.TotalGrand;
-                    
-                    t.TempEstimatedHandlingPortion = Math.Round(snap.TotalHandling * percentOfTotal, 2);
-                    t.TempEstimatedItemPortion = Math.Round(snap.TotalOrderBeforeDiscounts * percentOfTotal, 2);
-                    t.TempEstimatedItemDiscount = Math.Round(snap.TotalOrderDiscounts * percentOfTotal, 2);
-                    t.TempEstimatedShippingPortion = Math.Round(snap.TotalShippingBeforeDiscounts * percentOfTotal, 2);
-                    t.TempEstimatedShippingDiscount = Math.Round(snap.TotalShippingDiscounts * percentOfTotal, 2);
-                    t.TempEstimatedTaxPortion = Math.Round((snap.TotalTax + snap.TotalTax2) * percentOfTotal, 2);
+
+                    t.TempEstimatedHandlingPortion = Math.Round(snap.TotalHandling * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedItemPortion = Math.Round(snap.TotalOrderBeforeDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedItemDiscount = Math.Round(snap.TotalOrderDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedShippingPortion = Math.Round(snap.TotalShippingBeforeDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedShippingDiscount = Math.Round(snap.TotalShippingDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedTaxPortion = Math.Round((snap.TotalTax + snap.TotalTax2) * percentOfTotal, 2, MidpointRounding.AwayFromZero);
                     t.TempCustomerEmail = snap.UserEmail;
                     t.TempCustomerName = snap.BillingAddress.LastName + ", " + snap.BillingAddress.FirstName;
                 }

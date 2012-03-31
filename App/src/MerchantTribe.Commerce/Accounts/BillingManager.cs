@@ -107,7 +107,7 @@ namespace MerchantTribe.Commerce.Accounts
                                                                         s.Id);            
             Orders.LineItem li2 = new Orders.LineItem();
             Decimal multiplier = s.CurrentPlanPercent / 100;
-            Decimal transFees = Math.Round(multiplier * lastMonthSales, 2);
+            Decimal transFees = Math.Round(multiplier * lastMonthSales, 2, MidpointRounding.AwayFromZero);
             li2.BasePricePerItem = transFees;
             li2.ProductName = "Transaction Fees:";
             li2.ProductShortDescription = s.CurrentPlanPercent + "% of " + lastMonthSales.ToString("c");
