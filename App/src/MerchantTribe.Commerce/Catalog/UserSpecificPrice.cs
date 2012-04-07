@@ -32,12 +32,12 @@ namespace MerchantTribe.Commerce.Catalog
         {
             get {
                 if (this.ListPrice <= this.PriceWithAdjustments()) return 0;
-                return Math.Round((this.ListPrice - this.PriceWithAdjustments()), 2, MidpointRounding.AwayFromZero);
+                return Math.Round((this.ListPrice - this.PriceWithAdjustments()), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
             }
         }
         public decimal SavingsPercent
         {
-            get { return Math.Round((Savings / this.ListPrice) * 100, 0, MidpointRounding.AwayFromZero); }
+            get { return Math.Round((Savings / this.ListPrice) * 100, 0, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode); }
         }
         public bool ListPriceGreaterThanCurrentPrice
         {

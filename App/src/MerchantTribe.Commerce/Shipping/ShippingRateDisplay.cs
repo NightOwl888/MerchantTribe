@@ -82,7 +82,7 @@ namespace MerchantTribe.Commerce.Shipping
                         adjustment = amount;
                         break;
                     case ShippingMethodAdjustmentType.Percentage:
-                        adjustment = Math.Round(this.Rate * (amount / 100m), 2, MidpointRounding.AwayFromZero);
+                        adjustment = Math.Round(this.Rate * (amount / 100m), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
                         break;
                 }
                 this.Rate += adjustment;

@@ -93,10 +93,10 @@ namespace MerchantTribe.Commerce.Utilities
 					}
 					else {
 						if (result.SizeInBytes < 1048576) {
-                            result.FormattedSize = Math.Round(result.SizeInBytes / 1024, 1, MidpointRounding.AwayFromZero) + " KB";
+                            result.FormattedSize = Math.Round(result.SizeInBytes / 1024, 1, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode) + " KB";
 						}
 						else {
-                            result.FormattedSize = Math.Round(result.SizeInBytes / 1048576, 1, MidpointRounding.AwayFromZero) + " MB";
+                            result.FormattedSize = Math.Round(result.SizeInBytes / 1048576, 1, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode) + " MB";
 						}
 					}
 

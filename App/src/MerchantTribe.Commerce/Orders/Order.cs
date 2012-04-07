@@ -778,7 +778,7 @@ namespace MerchantTribe.Commerce.Orders
         //        {
         //            if (associatedProduct.ShippingDetails.ExtraShipFee != 0)
         //            {
-        //                extraShipFees += Math.Round((associatedProduct.ShippingDetails.ExtraShipFee * item.Quantity), 2, MidpointRounding.AwayFromZero);
+        //                extraShipFees += Math.Round((associatedProduct.ShippingDetails.ExtraShipFee * item.Quantity), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
         //            }
         //        }
         //    }
@@ -1079,7 +1079,7 @@ namespace MerchantTribe.Commerce.Orders
 
                 foreach (LineItem item in this.Items)
                 {
-                    result[item.Id] = Math.Round(item.LineTotal - (this.TotalOrderDiscounts * result[item.Id]), 2, MidpointRounding.AwayFromZero);
+                    result[item.Id] = Math.Round(item.LineTotal - (this.TotalOrderDiscounts * result[item.Id]), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
                 }
 
                 decimal discountedTotals = 0;

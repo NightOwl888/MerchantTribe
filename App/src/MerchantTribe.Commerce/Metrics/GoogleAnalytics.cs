@@ -70,7 +70,7 @@ namespace MerchantTribe.Commerce.Metrics
         {
             StringBuilder sb = new StringBuilder();
 
-            string total = Math.Round(orderValue, 2, MidpointRounding.AwayFromZero).ToString();
+            string total = Math.Round(orderValue, 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode).ToString();
 
             sb.Append("<!-- Google Code for purchase Conversion Page -->" + System.Environment.NewLine);
             sb.Append("<script type=\"text/javascript\">" + System.Environment.NewLine);

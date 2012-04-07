@@ -8,17 +8,17 @@ namespace MerchantTribe.Commerce.Utilities
 
 		public static decimal ApplyDiscountPercent(decimal monetaryAmount, decimal percentage)
 		{
-            return Math.Round((monetaryAmount * ((100 - percentage) / 100)), 2, MidpointRounding.AwayFromZero);
+            return Math.Round((monetaryAmount * ((100 - percentage) / 100)), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
 		}
 
 		public static decimal ApplyIncreasedPercent(decimal monetaryAmount, decimal percentage)
 		{
-            return Math.Round((monetaryAmount * ((100 + percentage) / 100)), 2, MidpointRounding.AwayFromZero);
+            return Math.Round((monetaryAmount * ((100 + percentage) / 100)), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
 		}
 
 		public static decimal GetDiscountAmountByPercent(decimal monetaryAmount, decimal percentage)
 		{
-            return Math.Round((monetaryAmount * (percentage / 100)), 2, MidpointRounding.AwayFromZero);
+            return Math.Round((monetaryAmount * (percentage / 100)), 2, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode);
 		}
 
 		//this may look silly, but it is here in case in the future we ever need to do any monetary conversions or rounding logic

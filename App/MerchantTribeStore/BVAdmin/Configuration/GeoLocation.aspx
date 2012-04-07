@@ -19,6 +19,10 @@
         <td class="formfield"><asp:DropDownList ID="lstCulture" runat="server"></asp:DropDownList></td>
     </tr>
     <tr>
+        <td class="formlabel">Midpoint Rounding Preference:</td>
+        <td class="formfield"><asp:DropDownList ID="lstMidpointRoundingMode" runat="server"></asp:DropDownList></td>
+    </tr>
+    <tr>
         <td>&nbsp;</td>
         <td class="formfield"><asp:ImageButton ID="btnSubmit" runat="server" 
                 ImageUrl="~/bvadmin/images/buttons/savechanges.png" onclick="btnSubmit_Click" /></td>

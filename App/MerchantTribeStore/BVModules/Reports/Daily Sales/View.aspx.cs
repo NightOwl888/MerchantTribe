@@ -106,12 +106,12 @@ namespace MerchantTribeStore
                     decimal percentOfTotal = 0;
                     if (snap.TotalGrand > 0) percentOfTotal = t.AmountAppliedToOrder / snap.TotalGrand;
 
-                    t.TempEstimatedHandlingPortion = Math.Round(snap.TotalHandling * percentOfTotal, 2, MidpointRounding.AwayFromZero);
-                    t.TempEstimatedItemPortion = Math.Round(snap.TotalOrderBeforeDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
-                    t.TempEstimatedItemDiscount = Math.Round(snap.TotalOrderDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
-                    t.TempEstimatedShippingPortion = Math.Round(snap.TotalShippingBeforeDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
-                    t.TempEstimatedShippingDiscount = Math.Round(snap.TotalShippingDiscounts * percentOfTotal, 2, MidpointRounding.AwayFromZero);
-                    t.TempEstimatedTaxPortion = Math.Round((snap.TotalTax + snap.TotalTax2) * percentOfTotal, 2, MidpointRounding.AwayFromZero);
+                    t.TempEstimatedHandlingPortion = Math.Round(snap.TotalHandling * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
+                    t.TempEstimatedItemPortion = Math.Round(snap.TotalOrderBeforeDiscounts * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
+                    t.TempEstimatedItemDiscount = Math.Round(snap.TotalOrderDiscounts * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
+                    t.TempEstimatedShippingPortion = Math.Round(snap.TotalShippingBeforeDiscounts * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
+                    t.TempEstimatedShippingDiscount = Math.Round(snap.TotalShippingDiscounts * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
+                    t.TempEstimatedTaxPortion = Math.Round((snap.TotalTax + snap.TotalTax2) * percentOfTotal, 2, MTApp.CurrentStore.Settings.MidpointRoundingMode);
                     t.TempCustomerEmail = snap.UserEmail;
                     t.TempCustomerName = snap.BillingAddress.LastName + ", " + snap.BillingAddress.FirstName;
                 }

@@ -113,5 +113,22 @@ namespace MerchantTribe.Commerce.Utilities
 
 			return result;
 		}
+
+        public static string MidpointRoundingModes(MidpointRounding m)
+        {
+            string result = "unknown";
+
+            switch (m)
+            {
+                case MidpointRounding.ToEven:
+                    result = "Toward Nearest Even Number (Example: 2.5 rounds to 2)";
+                    break;
+                case MidpointRounding.AwayFromZero:
+                    result = "Away From Zero (Example: 2.5 rounds to 3)";
+                    break;
+            }
+
+            return result;
+        }
 	}
 }

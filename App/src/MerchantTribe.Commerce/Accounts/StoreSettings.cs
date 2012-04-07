@@ -398,6 +398,28 @@ namespace MerchantTribe.Commerce.Accounts
             set { SetProp("MetaKeywords", value); }
         }
 
+        /// <summary>
+        /// Gets or sets the global rounding mode for the application for use in the <see cref="Math.Round(System.Decimal, System.Int32, System.MidpointRounding)"/> method.
+        /// </summary>
+        /// <remarks>
+        /// Can be set to one of the values of the <see cref="System.MidpointRounding"/> enumeration to control how the mid point between two whole numbers will be rounded.
+        /// </remarks>
+        public MidpointRounding MidpointRoundingMode
+        {
+            get
+            {
+                MidpointRounding result;
+                string value = GetProp("MidpointRoundingMode");
+                if (Enum.TryParse<MidpointRounding>(value, out result))
+                {
+                    return result;
+                }
+                // Default value
+                return MidpointRounding.AwayFromZero;
+            }
+            set { SetProp("MidpointRoundingMode", value.ToString()); }
+        }
+
         // Rewards Points
         public bool RewardsPointsOnPurchasesActive
         {

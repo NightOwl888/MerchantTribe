@@ -59,7 +59,7 @@ namespace MerchantTribeStore
             sb.Append("<div class=\"dragitem\" id=\"" + oi.Bvin + "\"><table class=\"formtable\" width=\"100%\"><tr>");
             sb.Append("<td width=\"50%\" class=\"namefield\">" + oi.Name + "</td>");
             sb.Append("<td width=\"20%\" class=\"pricefield\">Price: " + oi.PriceAdjustment.ToString("c") + "</td>");
-            sb.Append("<td width=\"20%\" class=\"weightfield\">Weight: " + Math.Round(oi.WeightAdjustment, 3, MidpointRounding.AwayFromZero).ToString() + "</td>");
+            sb.Append("<td width=\"20%\" class=\"weightfield\">Weight: " + Math.Round(oi.WeightAdjustment, 3, MerchantTribeApplication.Current.CurrentStore.Settings.MidpointRoundingMode).ToString() + "</td>");
             sb.Append("<td width=\"75\"><a href=\"#\" class=\"dragitemedit\" id=\"edit" + oi.Bvin + "\"><img src=\"../images/buttons/edit.png\" alt=\"edit\" /></a></td>");
             sb.Append("<td><a href=\"#\" class=\"trash\" id=\"rem" + oi.Bvin + "\"><img src=\"../../images/system/trashcan.png\" alt=\"Delete\" /></a></td>");
             sb.Append("<td><a href=\"#\" class=\"handle\"><img src=\"../../images/system/draghandle.png\" alt=\"Move\" /></a></td>");
