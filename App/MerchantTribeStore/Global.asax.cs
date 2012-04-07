@@ -38,12 +38,12 @@ namespace MerchantTribeStore
             try
             {
                 MerchantTribe.Commerce.RequestContext context = new MerchantTribe.Commerce.RequestContext();
-                MerchantTribeApplication app = MerchantTribe.Commerce.MerchantTribeApplication.InstantiateForDataBase(context);
+                MerchantTribeApplication.Current = MerchantTribe.Commerce.MerchantTribeApplication.InstantiateForDataBase(context);
 
-                List<long> storeIds = app.ScheduleServices.QueuedTasks.ListStoresWithTasksToRun();
+                List<long> storeIds = MerchantTribeApplication.Current.ScheduleServices.QueuedTasks.ListStoresWithTasksToRun();
                 if (storeIds != null)
                 {
-                    List<MerchantTribe.Commerce.Accounts.StoreDomainSnapshot> stores = app.AccountServices.Stores.FindDomainSnapshotsByIds(storeIds);
+                    List<MerchantTribe.Commerce.Accounts.StoreDomainSnapshot> stores = MerchantTribeApplication.Current.AccountServices.Stores.FindDomainSnapshotsByIds(storeIds);
                     if (stores != null)
                     {
                         System.Threading.Tasks.Parallel.ForEach(stores, CallTasksOnStore);

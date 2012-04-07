@@ -1,4 +1,5 @@
-﻿using MerchantTribe.Commerce.Catalog;
+﻿using MerchantTribe.Commerce;
+using MerchantTribe.Commerce.Catalog;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
@@ -65,6 +66,33 @@ namespace MerchantTribe.Commerce.Tests
         //
         #endregion
 
+        #region " Setup and Teardown (Store ID = 1)"
+
+        /// <summary>
+        /// Sets up the global static MerchantTribeApplication so the rest of the application can use it without
+        /// having to explicitly create an instance.
+        /// </summary>
+        [TestInitialize]
+        public void InstantiateMerchantTribeApplicationInContext()
+        {
+            RequestContext c = new RequestContext();
+            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            c.CurrentStore = new Accounts.Store();
+            c.CurrentStore.Id = 1;
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = app;
+        }
+
+        /// <summary>
+        /// Destroys the global context so state cannot be accidentally transferred between tests.
+        /// </summary>
+        [TestCleanup]
+        public void RemoveMerchantTribeApplicationFromContext()
+        {
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = null;
+        }
+
+        #endregion
+
 
         [TestMethod()]
         public void CanAddPageVersionToCategory()
@@ -88,7 +116,7 @@ namespace MerchantTribe.Commerce.Tests
             target.StoreId = 0;
             target.SourceType = CategorySourceType.FlexPage;
 
-            CategoryRepository repo = CategoryRepository.InstantiateForMemory(new RequestContext());
+            CategoryRepository repo = CategoryRepository.InstantiateForMemory(MerchantTribeApplication.Current.CurrentRequestContext);
 
             Assert.IsTrue(repo.Create(target), "Create should be true");
 

@@ -113,6 +113,10 @@
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MerchantTribe.Web, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MerchantTribe.Web.1.4.1.0\lib\net4\MerchantTribe.Web.dll</HintPath>
+    </Reference>
     <Reference Include="microsoft.visualbasic" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="paypal_base, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b37401294aaf5617, processorArchitecture=MSIL">

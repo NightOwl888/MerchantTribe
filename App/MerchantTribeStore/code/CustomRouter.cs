@@ -23,13 +23,17 @@ namespace MerchantTribeStore
             }
         }
 
+        public MerchantTribe.Commerce.MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribe.Commerce.MerchantTribeApplication.Current; }
+            set { MerchantTribe.Commerce.MerchantTribeApplication.Current = value; }
+        }
 
         public System.Web.IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
             var pro = MvcMiniProfiler.MiniProfiler.Current;
             using (pro.Step("Custom Router"))
             {
-                MerchantTribe.Commerce.MerchantTribeApplication MTApp;
                 string fullSlug;
 
                 using (pro.Step("Determine Store Id"))

@@ -12,6 +12,34 @@ namespace MerchantTribe.UnitTests
     [TestClass]
     public class VariantsTest
     {
+
+        #region " Setup and Teardown (StoreID = 1)"
+
+        /// <summary>
+        /// Sets up the global static MerchantTribeApplication so the rest of the application can use it without
+        /// having to explicitly create an instance.
+        /// </summary>
+        [TestInitialize]
+        public void InstantiateMerchantTribeApplicationInContext()
+        {
+            RequestContext c = new RequestContext();
+            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            c.CurrentStore = new MerchantTribe.Commerce.Accounts.Store();
+            c.CurrentStore.Id = 1;
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = app;
+        }
+
+        /// <summary>
+        /// Destroys the global context so state cannot be accidentally transferred between tests.
+        /// </summary>
+        [TestCleanup]
+        public void RemoveMerchantTribeApplicationFromContext()
+        {
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = null;
+        }
+
+        #endregion
+
         private OptionList GetSampleOptions()
         {
             OptionList result = new OptionList();
@@ -43,9 +71,8 @@ namespace MerchantTribe.UnitTests
             OptionList options = GetSampleOptions();
 
             VariantList target = new VariantList();
-            MerchantTribeApplication mtapp = MerchantTribeApplication.InstantiateForMemory(new RequestContext());
 
-            List<OptionSelectionList> data = mtapp.CatalogServices.VariantsGenerateAllPossibleSelections(options);
+            List<OptionSelectionList> data = MerchantTribeApplication.Current.CatalogServices.VariantsGenerateAllPossibleSelections(options);
 
             Assert.IsNotNull(data, "Data should not be null");
             Assert.AreEqual(6, data.Count, "There should be six possible combinations");

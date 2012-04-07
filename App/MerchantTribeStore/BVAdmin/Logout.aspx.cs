@@ -11,7 +11,12 @@ namespace MerchantTribeStore.BVAdmin
 {
     public partial class Logout : System.Web.UI.Page
     {
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
 
         protected override void OnPreInit(EventArgs e)
         {

@@ -22,7 +22,12 @@ namespace MerchantTribeStore.Controllers
             set { MTApp.CurrentRequestContext = value; }
         }
 
-        public MerchantTribeApplication MTApp { get; set; }
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set  { MerchantTribeApplication.Current = value; }
+        }
+        
 
         public MerchantTribe.Commerce.Accounts.Store CurrentStore
         {

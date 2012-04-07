@@ -15,7 +15,13 @@ namespace MerchantTribeStore.Controllers
         #region " Store Specific Setup Code"
         // Initialize Store Specific Request Data
         MerchantTribe.Commerce.RequestContext _BVRequestContext = new RequestContext();
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

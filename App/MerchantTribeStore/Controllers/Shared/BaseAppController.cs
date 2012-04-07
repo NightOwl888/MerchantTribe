@@ -14,7 +14,13 @@ namespace MerchantTribeStore.Controllers.Shared
     [StoreClosedFilter]
     public class BaseAppController : Controller, IMultiStorePage
     {
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
+
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

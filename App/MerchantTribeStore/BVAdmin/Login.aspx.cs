@@ -8,8 +8,12 @@ namespace MerchantTribeStore
 
     partial class BVAdmin_Login : System.Web.UI.Page, IMultiStorePage
     {
-        
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
         
         protected override void OnPreInit(System.EventArgs e)
         {

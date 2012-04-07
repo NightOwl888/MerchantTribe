@@ -1,4 +1,5 @@
-﻿using MerchantTribe.Commerce.Orders;
+﻿using MerchantTribe.Commerce;
+using MerchantTribe.Commerce.Orders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,33 @@ namespace MerchantTribe.Commerce.Tests
         //
         #endregion
 
+        #region " Setup and Teardown (StoreID = 1)"
+
+        /// <summary>
+        /// Sets up the global static MerchantTribeApplication so the rest of the application can use it without
+        /// having to explicitly create an instance.
+        /// </summary>
+        [TestInitialize]
+        public void InstantiateMerchantTribeApplicationInContext()
+        {
+            RequestContext c = new RequestContext();
+            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            c.CurrentStore = new Accounts.Store();
+            c.CurrentStore.Id = 1;
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = app;
+        }
+
+        /// <summary>
+        /// Destroys the global context so state cannot be accidentally transferred between tests.
+        /// </summary>
+        [TestCleanup]
+        public void RemoveMerchantTribeApplicationFromContext()
+        {
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = null;
+        }
+
+        #endregion
+
 
         /// <summary>
         ///A test for Order Constructor
@@ -72,10 +100,8 @@ namespace MerchantTribe.Commerce.Tests
         public void CanAddItemToOrderAndCalculate()
         {
             
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 1;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 1;
 
             Order target = new Order();
             LineItem li = new LineItem() { BasePricePerItem = 19.99m, 
@@ -90,7 +116,7 @@ namespace MerchantTribe.Commerce.Tests
             bool upsertResult = app.OrderServices.Orders.Upsert(target);
             Assert.IsTrue(upsertResult, "Order Upsert Failed");
 
-            Assert.AreEqual(c.CurrentStore.Id, target.StoreId, "Order store ID was not set correctly");
+            Assert.AreEqual(app.CurrentRequestContext.CurrentStore.Id, target.StoreId, "Order store ID was not set correctly");
             Assert.AreNotEqual(string.Empty, target.bvin, "Order failed to get a bvin");
             Assert.AreEqual(1, target.Items.Count, "Item count should be one");
             Assert.AreEqual(target.bvin, target.Items[0].OrderBvin, "Line item didn't receive order bvin");
@@ -101,10 +127,8 @@ namespace MerchantTribe.Commerce.Tests
         public void CanCalculateShippingWithNonShippingItems()
         {
 
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 1;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 1;
 
             // Create Shipping Method            
             Shipping.ShippingMethod m = new Shipping.ShippingMethod();
@@ -166,10 +190,8 @@ namespace MerchantTribe.Commerce.Tests
         public void CanSkipShippingWhenOnlyNonShippingItems()
         {
 
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 1;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 1;
 
             // Create Shipping Method            
             Shipping.ShippingMethod m = new Shipping.ShippingMethod();
@@ -231,10 +253,8 @@ namespace MerchantTribe.Commerce.Tests
         public void CanUseShippingOverrideCorrectly()
         {
 
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 1;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 1;
 
             // Create Shipping Method            
             Shipping.ShippingMethod m = new Shipping.ShippingMethod();
@@ -309,9 +329,8 @@ namespace MerchantTribe.Commerce.Tests
         public void CanSaveAndRetrieveCouponsInRepository()
         {
             Order target = new Order();            
-            RequestContext c = new RequestContext();
-            c.CurrentStore = new Accounts.Store() { Id = 1 };
-            OrderRepository repository = OrderRepository.InstantiateForMemory(c);
+            OrderRepository repository = OrderRepository.InstantiateForMemory(MerchantTribeApplication.Current.CurrentRequestContext);
+            MerchantTribeApplication.Current.CurrentStore.Id = 1;
             repository.Create(target);
             target.AddCouponCode("one");
             target.AddCouponCode("two");
@@ -334,9 +353,8 @@ namespace MerchantTribe.Commerce.Tests
             Order target = new Order();
             target.AddCouponCode("one");
             target.AddCouponCode("two");
-            RequestContext c = new RequestContext();
-            c.CurrentStore = new Accounts.Store() { Id = 1 };
-            OrderRepository repository = OrderRepository.InstantiateForMemory(c);
+            OrderRepository repository = OrderRepository.InstantiateForMemory(MerchantTribeApplication.Current.CurrentRequestContext);
+            MerchantTribeApplication.Current.CurrentStore.Id = 1;
             repository.Create(target);
 
             Assert.AreEqual(2, target.Coupons.Count, "Coupon count should be one");
@@ -348,9 +366,7 @@ namespace MerchantTribe.Commerce.Tests
         public void RemoveCouponCodeTest()
         {
             Order target = new Order();
-            RequestContext c = new RequestContext();
-            c.CurrentStore = new Accounts.Store() { Id = 1 };
-            OrderRepository repository = OrderRepository.InstantiateForMemory(c);
+            OrderRepository repository = OrderRepository.InstantiateForMemory(MerchantTribeApplication.Current.CurrentRequestContext);
             repository.Create(target);
             target.AddCouponCode("one");
             target.AddCouponCode("two");

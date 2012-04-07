@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,88 @@ namespace MerchantTribe.Commerce
         private bool _IsForMemoryOnly = false;
 
         private string _CurrentRelativeRoot = string.Empty;
+
+
+#region " Static Access to Current MerchantTribeApplication "
+
+        /// <summary>
+        /// Provides global access to the current <see cref="MerchantTribeApplication"/> instance.
+        /// </summary>
+        /// <remarks></remarks>
+        public static MerchantTribeApplication Current
+        {
+            get
+            {
+                MerchantTribeApplication result = GetCurrentMerchantTribeApplication();
+                if (result == null)
+                {
+                    // If this is not a web application, it is for memory only
+                    bool isForMemoryOnly = (HttpContext.Current == null);
+                    result = new MerchantTribeApplication(new RequestContext(), isForMemoryOnly);
+                    SetCurrentMerchantTribeApplication(result);
+
+                    //throw new System.NullReferenceException("The global MerchantTribeApplication must be set before accessing any members. " + 
+                    //    "Common usage: MerchantTribeApplication.Current = MerchantTribeApplication.InstantiateForXXX(new RequestContext());");
+                }
+                return result;
+            }
+            set
+            {
+                SetCurrentMerchantTribeApplication(value);
+            }
+        }
+
+        private const string _MerchantTribeApplicationContextName = "MerchantTribe.Commerce.MerchantTribeApplication";
+
+        /// <summary>
+        /// Gets a copy of the global instance of <see cref="MerchantTribeApplication"/>.
+        /// </summary>
+        /// <remarks>
+        /// In a web project, the instance will be retrieved from HttpContext.Current.
+        /// In a Windows project (such as a unit test) the instance will be retrieved from 
+        /// the current Thread.
+        /// 
+        /// The SetCurrentMerchantTribeApplication() method must be called before 
+        /// </remarks>
+        /// <returns>The global instance of <see cref="MerchantTribeApplication"/>.</returns>
+        private static MerchantTribeApplication GetCurrentMerchantTribeApplication()
+        {
+            if (HttpContext.Current != null)
+            {
+                return (MerchantTribeApplication)HttpContext.Current.Items[_MerchantTribeApplicationContextName];
+            }
+            else
+            {
+                System.LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_MerchantTribeApplicationContextName);
+                return (MerchantTribeApplication)Thread.GetData(slot);
+            }
+        }
+
+        /// <summary>
+        /// Sets the global instance of <see cref="MerchantTribeApplication"/>.
+        /// </summary>
+        /// <remarks>
+        /// In a web project, the instance will be stored in HttpContext.Current.
+        /// In a Windows project (such as a unit test) the instance will be stored in 
+        /// the current Thread.
+        /// </remarks>
+        /// <param name="app">An instance of <see cref="MerchantTribeApplication"/>.</param>
+        private static void SetCurrentMerchantTribeApplication(MerchantTribeApplication app)
+        {
+            if (HttpContext.Current != null)
+            {
+                HttpContext.Current.Items[_MerchantTribeApplicationContextName] = app;
+            }
+            else
+            {
+                System.LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_MerchantTribeApplicationContextName);
+                Thread.SetData(slot, app);
+            }
+        }
+
+#endregion
+
+
         public string CurrentRelativeRoot { 
             get {
                 if (_CurrentRelativeRoot.Trim() == string.Empty)

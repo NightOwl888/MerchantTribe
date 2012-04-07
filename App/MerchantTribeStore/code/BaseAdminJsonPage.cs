@@ -15,7 +15,11 @@ namespace MerchantTribeStore
             set { _AuthTokenGuid = value; }
         }
 
-        public MerchantTribeApplication MTApp { get; set; }
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
                               
         protected override void OnLoad(EventArgs e)
         {

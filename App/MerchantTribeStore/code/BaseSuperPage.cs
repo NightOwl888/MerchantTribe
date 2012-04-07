@@ -36,8 +36,11 @@ namespace MerchantTribeStore
                 return null;
             }
         }
-
-        public MerchantTribeApplication MTApp { get; set; }
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
         public bool RequiresSSL
         {
             get { return true; }

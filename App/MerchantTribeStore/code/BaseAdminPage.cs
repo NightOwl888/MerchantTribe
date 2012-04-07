@@ -17,7 +17,11 @@ namespace MerchantTribeStore
         //private MerchantTribe.Commerce.RequestContext _CurrentRequestContext = new MerchantTribe.Commerce.RequestContext();
         private IMessageBox _messageBox = null;
 
-        public MerchantTribeApplication MTApp { get; set; }
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
      
         public IMessageBox PageMessageBox
         {

@@ -64,14 +64,40 @@ namespace MerchantTribe.Commerce.Tests
         //
         #endregion
 
-                      
-        [TestMethod]
-        public void CanCreateShippingMethod()
+        #region " Setup and Teardown (StoreID = 230)"
+
+        /// <summary>
+        /// Sets up the global static MerchantTribeApplication so the rest of the application can use it without
+        /// having to explicitly create an instance.
+        /// </summary>
+        [TestInitialize]
+        public void InstantiateMerchantTribeApplicationInContext()
         {
             RequestContext c = new RequestContext();
             MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
             c.CurrentStore = new Accounts.Store();
             c.CurrentStore.Id = 230;
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = app;
+        }
+
+        /// <summary>
+        /// Destroys the global context so state cannot be accidentally transferred between tests.
+        /// </summary>
+        [TestCleanup]
+        public void RemoveMerchantTribeApplicationFromContext()
+        {
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = null;
+        }
+
+        #endregion
+
+                      
+        [TestMethod]
+        public void CanCreateShippingMethod()
+        {
+ 
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 230;
 
             Shipping.ShippingMethod target = new Shipping.ShippingMethod();
             target.Adjustment = 1.23m;
@@ -90,10 +116,8 @@ namespace MerchantTribe.Commerce.Tests
         [TestMethod]
         public void CanRetrieveShippingMethod()
         {
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 230;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 230;
 
             Shipping.ShippingMethod target = new Shipping.ShippingMethod();
             target.Adjustment = 1.23m;
@@ -125,10 +149,8 @@ namespace MerchantTribe.Commerce.Tests
         [TestMethod]
         public void CanUpdateShippingMethod()
         {
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 230;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 230;
 
             Shipping.ShippingMethod target = new Shipping.ShippingMethod();
             target.Adjustment = 1.23m;
@@ -168,10 +190,8 @@ namespace MerchantTribe.Commerce.Tests
         [TestMethod]
         public void CanDeleteShippingMethod()
         {
-            RequestContext c = new RequestContext();
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 230;
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 230;
 
             Shipping.ShippingMethod target = new Shipping.ShippingMethod();
             target.Adjustment = 1.23m;

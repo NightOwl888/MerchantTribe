@@ -15,7 +15,12 @@ namespace MerchantTribeStore
     public class BaseSignupPage : System.Web.UI.Page
     {
         protected ViewDataDictionary ViewData { get; set; }
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
 
         protected override void OnPreInit(EventArgs e)
         {

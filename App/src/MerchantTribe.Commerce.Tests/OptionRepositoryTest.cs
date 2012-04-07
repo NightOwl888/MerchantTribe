@@ -67,15 +67,39 @@ namespace MerchantTribe.Commerce.Tests
         //
         #endregion
 
+        #region " Setup and Teardown (Store ID = 342)"
+
+        /// <summary>
+        /// Sets up the global static MerchantTribeApplication so the rest of the application can use it without
+        /// having to explicitly create an instance.
+        /// </summary>
+        [TestInitialize]
+        public void InstantiateMerchantTribeApplicationInContext()
+        {
+            RequestContext c = new RequestContext();
+            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            c.CurrentStore = new Accounts.Store();
+            c.CurrentStore.Id = 342;
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = app;
+        }
+
+        /// <summary>
+        /// Destroys the global context so state cannot be accidentally transferred between tests.
+        /// </summary>
+        [TestCleanup]
+        public void RemoveMerchantTribeApplicationFromContext()
+        {
+            MerchantTribe.Commerce.MerchantTribeApplication.Current = null;
+        }
+
+        #endregion
+
 
         [TestMethod()]
         public void CanAddOptionsToProductInCorrectOrder()
         {
-            RequestContext c = new RequestContext();
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 342;
-
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
+            app.CurrentStore.Id = 342;
 
             Product p = new Product();
             p.Sku = "TESTABC";
@@ -140,11 +164,7 @@ namespace MerchantTribe.Commerce.Tests
         [TestMethod()]
         public void CanAddOptionsToProductWithItemsInCorrectOrder()
         {
-            RequestContext c = new RequestContext();
-            c.CurrentStore = new Accounts.Store();
-            c.CurrentStore.Id = 342;
-
-            MerchantTribeApplication app = MerchantTribeApplication.InstantiateForMemory(c);
+            MerchantTribeApplication app = MerchantTribeApplication.Current;
 
             Product p = new Product();
             p.Sku = "TESTABC";

@@ -29,7 +29,13 @@ namespace MerchantTribeStore.Controllers.Shared
             get { return _CurrentRequestContext.CurrentStore; }
             set { _CurrentRequestContext.CurrentStore = value; }
         }
-        public MerchantTribeApplication MTApp { get; set; }
+
+        public MerchantTribeApplication MTApp
+        {
+            get { return MerchantTribeApplication.Current; }
+            set { MerchantTribeApplication.Current = value; }
+        }
+
         public UserAccount CurrentSuperUser
         {
             get
